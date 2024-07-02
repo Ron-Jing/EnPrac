@@ -47,23 +47,37 @@
 <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.4/libs/oversea/index.js"></script>
 <script>
     const bot_id = '7386639167448514565'; // 定义机器人的ID
-    // 自定义Bot的名称和图标
     const title = 'English Practice Game'; // 定义机器人的标题
     const icon = 'https://img0.baidu.com/it/u=2063361750,3512507530&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500'; // 定义机器人的图标
     const lang = 'en'; // 定义语言为中文
     const layout = 'mobile'; // 定义布局为移动端
     
-    // 创建一个新的WebChat客户端实例
-    new CozeWebSDK.WebChatClient({
-        config: {
-            bot_id, // 配置机器人的ID
-        },
-        componentProps: {
-            title, // 设置机器人的标题
-            icon,  // 设置机器人的图标
-        },
-        el: document.getElementById('position_demo') // 将实例挂载到指定的DOM元素
-    });
+    let chatClient; // 定义一个变量来引用WebChat客户端实例
+
+    function createWebChatClient() {
+        if (chatClient) {
+            // 如果已存在实例，销毁它
+            chatClient.destroy();
+        }
+
+        // 创建一个新的WebChat客户端实例
+        chatClient = new CozeWebSDK.WebChatClient({
+            config: {
+                bot_id, // 配置机器人的ID
+            },
+            componentProps: {
+                title, // 设置机器人的标题
+                icon,  // 设置机器人的图标
+            },
+            el: document.getElementById('position_demo') // 将实例挂载到指定的DOM元素
+        });
+    }
+
+    // 初始化调用创建WebChat客户端实例
+    createWebChatClient();
+
+    // 示例：模拟用户重新加载实例的操作，可以通过其他事件触发调用该函数
+    setTimeout(createWebChatClient, 60000); // 每60秒重新创建实例，作为示范
 </script>
 </body>
 </html>
