@@ -52,9 +52,9 @@
     const icon = 'https://img0.baidu.com/it/u=2063361750,3512507530&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500'; // 定义机器人的图标
     const lang = 'en'; // 定义语言为中文
     const layout = 'mobile'; // 定义布局为移动端
-    
+
     // 创建一个新的WebChat客户端实例
-    new CozeWebSDK.WebChatClient({
+    const chatClient = new CozeWebSDK.WebChatClient({
         config: {
             bot_id, // 配置机器人的ID
         },
@@ -64,6 +64,38 @@
         },
         el: document.getElementById('position_demo') // 将实例挂载到指定的DOM元素
     });
+
+    // 假设 sendToCoze 是 API 发送消息的方法
+    function sendToCoze(message, callback) {
+        chatClient.sendMessage(message)
+            .then(response => callback(response))
+            .catch(error => callback({ error }));
+    }
+
+    const sendRequest = (message) => {
+        return new Promise((resolve, reject) => {
+            sendToCoze(message, (response) => {
+                if (response.error) {
+                    reject(response.error);
+                } else {
+                    resolve(response);
+                }
+            });
+        });
+    };
+
+    // 示例消息
+    const messages = ['message1', 'message2', 'message3'];
+
+    // 并发发送所有消息
+    Promise.all(messages.map(msg => sendRequest(msg)))
+        .then(responses => {
+            console.log('All messages sent successfully:', responses);
+        })
+        .catch(error => {
+            console.error('Error sending messages:', error);
+        });
+
 </script>
 </body>
 </html>
