@@ -19,7 +19,10 @@
         }
         /* 定义自定义悬浮入口的位置，居中对齐 */
         #position_demo {
+            display: flex;
+            justify-content: center;   /* 水平居中 */
             position: relative;        /* 相对定位，确保居中 */
+            width: 100%;               /* 确保宽度填充100% */
         }
         /* Media Query for Mobile Devices */
         @media (max-width: 768px) {
