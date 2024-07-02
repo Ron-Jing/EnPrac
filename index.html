@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         /* 外层容器，显示Flexbox布局 */
         body {
@@ -11,35 +12,43 @@
             margin: 0;                /* 移除默认的页面边距 */
             flex-direction: column;   /* 列布局，使内容垂直排列 */
         }
-
         /* 页面标题样式，静态居中 */
         h1 {
             margin-bottom: 40px;       /* 与悬浮入口的间距为40像素 */
             text-align: center;        /* 文本水平居中 */
         }
-
         /* 定义自定义悬浮入口的位置，居中对齐 */
         #position_demo {
             position: relative;        /* 相对定位，确保居中 */
+        }
+        /* Media Query for Mobile Devices */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;       /* 增加内边距，确保内容不会紧贴屏幕 */
+            }
+            h1 {
+                font-size: 24px;     /* 根据屏幕大小调整标题字体大小 */
+            }
+            #position_demo {
+                width: 100%;        /* 确保容器宽度为100% */
+                padding: 10px;      /* 增加内边距 */
+            }
         }
     </style>
 </head>
 <body>
 <h1>English Practice Game</h1> <!-- 页面标题 -->
-
 <!-- 悬浮入口的容器 -->
 <div id="position_demo"></div>
-
 <!-- 加载Coze Web SDK的脚本，指定版本 -->
 <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.4/libs/oversea/index.js"></script>
-
 <script>
     const bot_id = '7386639167448514565'; // 定义机器人的ID
     // 自定义Bot的名称和图标
     const title = 'English Practice Game'; // 定义机器人的标题
     const icon = 'https://img0.baidu.com/it/u=2063361750,3512507530&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500'; // 定义机器人的图标
     const lang = 'en'; // 定义语言为中文
-    const layout = 'pc'; // 定义布局为PC端
+    const layout = 'mobile'; // 定义布局为移动端
     
     // 创建一个新的WebChat客户端实例
     new CozeWebSDK.WebChatClient({
